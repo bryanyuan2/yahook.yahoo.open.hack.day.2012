@@ -113,7 +113,7 @@ var appendSource = function(url) {
             .attr('href', url)
             .attr('target', '_blank')
             .text(yhack_pages_source_life_plus_text
-                + ' (' + $('.profileName').text()));
+                + ' (' + $('.profileName').text() + ')'));
     $('.fbProfileByline').append(yhack_pages_source_text);
 }
 
@@ -196,7 +196,7 @@ var appendPhotos = function(obj) {
                 .attr('src', link)));
     }
 
-    Shadowbox.init();
+    Shadowbox.init({'overlayOpacity':'0.8'});
 }
 
 /*
@@ -328,24 +328,34 @@ $(document).ready(function() {
     if (action == '/pages/') {
         console.log('[check] facebook /pages/ loaded');
 
-        var yhack_screen_mask = $('<div>')
-            .addClass('yhack_screen_mask')
-            .attr('id', 'yhack_screen_mask')
-            .height($(document).height());
+        if ($("#fbTimelineNavTopRow").hasClass('clearfix'))
+        {
+            console.log("timeline");
+        }
+        else
+        {
+            var yhack_screen_mask = $('<div>')
+                .addClass('yhack_screen_mask')
+                .attr('id', 'yhack_screen_mask')
+                .height($(document).height());
 
-        // add yhack_logo_ya_resize & yhack_logo_hook_resize
-        var yhack_logo_hook_resize = $('<div>')
-            .addClass('yhack_logo_hook_resize')
-            .attr('id', 'yhack_logo_hook_resize');
-        $('body').append(yhack_logo_hook_resize);
+            // add yhack_logo_ya_resize & yhack_logo_hook_resize
+            var yhack_logo_hook_resize = $('<div>')
+                .addClass('yhack_logo_hook_resize')
+                .attr('id', 'yhack_logo_hook_resize');
+            $('body').append(yhack_logo_hook_resize);
+            
+            var yhack_logo_ya_resize = $('<div>')
+                .addClass('yhack_logo_ya_resize')
+                .attr('id','yhack_logo_ya_resize');
+            $('body').append(yhack_logo_ya_resize);
+
+
+            $('#yhack_logo_ya_resize').animate({'left':'300px'});
+            $('#yhack_logo_hook_resize').animate({'left':'300px'});
+        }
+
         
-        var yhack_logo_ya_resize = $('<div>')
-            .addClass('yhack_logo_ya_resize')
-            .attr('id','yhack_logo_ya_resize');
-        $('body').append(yhack_logo_ya_resize);
-
-        $('#yhack_logo_ya_resize').animate({'left':'300px'});
-        $('#yhack_logo_hook_resize').animate({'left':'300px'});
 
         // get geo information
         var get_lat_lon_url = $('.mtm').find('a').attr('href');
