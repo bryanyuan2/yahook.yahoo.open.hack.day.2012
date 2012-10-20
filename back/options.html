@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles/options.css" />
+    <title>MusicTube Options</title>
+  </head>
+  <body>
+    <div id="sidebar-container">
+      <h1>MusicTube Options</h1>
+      <ul id="sidebar">
+        <li rel="player-options-page">Player Options</li>
+        <li rel="import-export-page">Import/Export</li>
+      </ul>
+    </div>
+    <div id="main">
+      <div id="player-options-page" class="page">
+        <h2>Player Options</h2>
+        <div class="content">
+          <section>
+            <h3>Play Mode</h3>
+            <div class="fields">
+              <div class="field">
+                <input type="radio" id="playmode-repeat" name="playmode" value="repeat" />
+                <label for="playmode-repeat">Repeat All</label>
+              </div>
+              <div class="field">
+                <input type="radio" id="playmode-repeat-one" name="playmode" value="repeat-one" />
+                <label for="playmode-repeat-one">Repeat One</label>
+              </div>
+              <div class="field">
+                <input type="radio" id="playmode-shuffle" name="playmode" value="shuffle" />
+                <label for="playmode-shuffle">Shuffle</label>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div id="import-export-page" class="page">
+        <h2>Import/Export</h2>
+        <div class="msg"></div>
+        <div class="content">
+          <section>
+            <h3>Import</h3>
+            <div class="field">
+              <textarea id="import"></textarea>
+              <input type="button" id="submit-import" value="Submit" />
+            </div>
+          </section>
+          <section>
+            <h3>Export</h3>
+            <div class="field">
+              <textarea id="export" readonly="true"></textarea>
+              <input type="button" id="refresh-export" value="Refresh" />
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/options.js"></script>
+  </body>
+</html>

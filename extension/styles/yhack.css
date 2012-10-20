@@ -1,0 +1,141 @@
+/*
+	pages.yhack_sidebar
+*/
+.yhack_sidebar_section{
+	margin: 1px 0px 2px 0px;
+}
+
+/*
+	pages.yhack_facebook_img
+*/
+.yhack_facebook_img .yhack_facebook_img:link{
+	border: none;
+	border-style: none;
+	margin: 0px 0px 0px 0px;
+	line-height: 1px; 
+}
+
+/*
+	pages.yhack_table
+*/
+.yhack_table_section_label{
+	color: #888888;
+	font-weight: bold;
+}
+.yhack_table_section_label_style{
+	width: 133px;
+}
+.yhack_table_section_value{
+
+}
+
+/*
+	yhack_weahter	
+*/
+
+.yhack_weather_widget{
+	background: #222222;
+	padding: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.yhack_weather_low_temp{
+	font-size: 25px;
+	color: #AAAAAA;
+	margin-left: 5px;
+}
+.yhack_weather_high_temp{
+	font-size: 30px;
+	color: #FFFFFF
+}
+
+.yhack_weather_image{
+	float: right;
+	position: relative;
+	top: -7px;
+	left: -10px;
+	z-index: 1;
+}
+
+.yhack_weather_link{
+	border: none;
+	border-style: none;	
+}
+
+.yhack_weather_link:link {
+	color: blue;
+	text-decoration: none;
+}
+
+.yhack_weather_link:visited {
+	color: purple;
+	text-decoration: none;
+}
+
+.yhack_weather_link:active {
+	background-color: yellow;
+	text-decoration: none;
+}
+
+.yhack_weather_link:hover {
+	color: red;
+	text-decoration: none;
+}
+
+/*
+	pages.yhack_icon
+	events.yhack_icon	
+*/
+.yhack_icon_section {
+	vertical-align: middle;
+}
+.yhack_icon_section img {
+	padding: 0px 2px 0px 0px;
+}
+
+.yhack_title_section {
+
+}
+
+/*
+	pages.yhack_loading	
+	events.yhack_loading
+*/
+.yhack_loading {
+	height: 20px;
+	margin: 0px auto;
+	text-align: center; 
+	padding: 6px 0px 6px 0px;
+}
+.yhack_loading_theather {
+	height: 20px;
+	margin: 0px auto;
+	text-align: center; 
+	padding: 6px 0px 6px 0px;
+}
+
+/*
+	pages.yhack_theather	
+*/
+#yhack_theather_info_section_text, #yhack_pages_basic_content{
+	padding: 5px 0px 5px 0px;
+}
+
+
+/*
+.screenMask
+{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: #000000;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    //visibility: hidden;
+}*/
+
