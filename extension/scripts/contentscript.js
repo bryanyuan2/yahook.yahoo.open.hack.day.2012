@@ -303,14 +303,14 @@ var appendPark = function(obj) {
             .addClass('phs')
             .append('<span class="yhack_table_section_label">' + name[i] + '</span>')
             .append('<br />')
-            .append('<a href="#">' + address[i] + '</a>')
+            .append('<a target="_blank" href="http://tw.maps.yahoo.com/?addr=' + encodeURI(address[i]) + '&ei=utf8">' + address[i] + '</a>')
             .append('<br />')
             .append('總汽車位: ' + totalCar[i])
             .append('<br />')
             .append('總摩托車位: ' + totalMotor[i])
-            .append('<hr />')
+            .append('<br />')
             .append('總腳踏車位: ' + totalBike[i])
-            .append('<br />'));
+            .append('<hr />'));
         }
         
          
