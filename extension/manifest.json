@@ -19,7 +19,7 @@
    },
    "name": "Ya!hook",
    "permissions": [ "tabs", "*://www.facebook.com/","http://*/"],
-   "version": "0.1.1",
+   "version": "1.0.0",
    "web_accessible_resources": [
       "img/close.png",
       "img/next.png",
