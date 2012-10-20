@@ -450,6 +450,8 @@ $(document).ready(function() {
         }).error(function() {
             console.log("search error");
             remove_screen_mask();
+            $('.yhack_loading').fadeOut(500);
+            $('.yhack_loading_main').fadeOut(500);
         });
     }
 
