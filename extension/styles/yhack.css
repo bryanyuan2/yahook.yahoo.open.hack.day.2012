@@ -103,6 +103,14 @@
 	pages.yhack_loading	
 	events.yhack_loading
 */
+
+.yhack_loading_main {
+	height: 20px;
+	margin: 0px auto;
+	text-align: center; 
+	padding: 6px 0px 6px 0px;
+}
+
 .yhack_loading {
 	height: 20px;
 	margin: 0px auto;
@@ -119,23 +127,6 @@
 /*
 	pages.yhack_theather	
 */
-#yhack_theather_info_section_text, #yhack_pages_basic_content{
+#yhack_theather_info_section_text, #yhack_pages_basic_text{
 	padding: 5px 0px 5px 0px;
 }
-
-
-/*
-.screenMask
-{
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-    background-color: #000000;
-    opacity: 0.7;
-    filter: alpha(opacity=70);
-    //visibility: hidden;
-}*/
-

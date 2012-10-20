@@ -36,15 +36,7 @@
         */
         if (action=="/pages/")
         {
-            console.log("[check] facebook /pages/ loaded");
-
-
-            var test = document.createElement('div');
-            $(test).addClass("screenMask").attr("id","fuck");
-            $('.screenMask').height($(document).height());
-            $("body").append(test);
-
-            
+            console.log("[check] facebook /pages/ loaded");            
 
             var get_lat_lon_url = $(".mtm").find("a").attr('href');
 
@@ -57,6 +49,8 @@
             // yhack_basic_info_section
             var yhack_basic_info_section = document.createElement('div');
             var yhack_basic_info_section_text = document.createElement('div');
+
+            $(yhack_basic_info_section_text).attr("id","yhack_basic_info_section_text");
             
             $(yhack_basic_info_section).addClass("uiHeader")
             .addClass("uiHeaderTopAndBottomBorder")
@@ -68,7 +62,7 @@
             $("#pagelet_info").before(yhack_basic_info_section);
             $(yhack_basic_info_section).after(yhack_basic_info_section_text);
             
-            $("<div class='yhack_loading'><img width='16' height='16' src='" + moon_url_const + yhack_loading_gif + "' /><br /></div>").hide().appendTo(yhack_basic_info_section_text).fadeIn();
+            $("<div class='yhack_loading_main'><img width='16' height='16' src='" + moon_url_const + yhack_loading_gif + "' /><br /></div>").hide().appendTo(yhack_basic_info_section_text).fadeIn();
                                 
 
             // yhack_pages_blog_section
@@ -266,126 +260,139 @@
                     $("#yhack_bar").after("<ul class='tags'></ul>");
 
                     // add yhack_pages_basic_table
+                    var yhack_pages_basic_text = document.createElement('div');
                     var yhack_pages_basic_content = document.createElement('table');
+                    $(yhack_pages_basic_text).attr("id","yhack_pages_basic_text");
+                    $(yhack_pages_basic_text).append(yhack_pages_basic_content);
                     $(yhack_pages_basic_content).attr('id','yhack_pages_basic_content');
-                    $(yhack_basic_info_section).after(yhack_pages_basic_content);
-
+                    $(yhack_basic_info_section).after(yhack_pages_basic_text);
                     $(".yhack_loading").fadeOut(500);
-                                
-                    for (var key in obj)
-                    {
-                        /*
-                            load basic information
-                        */
-                        if (key == 'basic')
+                    $(".yhack_loading_main").fadeOut(500,function(){
+                        for (var key in obj)
                         {
-                            for (var item in obj[key])
+                            /*
+                                load basic information
+                            */
+                            if (key == 'basic')
                             {
-                                var get_sep_item = obj[key][item].search('：');
-
-                                var data_label = obj[key][item].substr(0,get_sep_item);
-                                var data_value = obj[key][item].substr(get_sep_item+1,obj[key][item].length);
-
-                                var data_value = data_value.replace(/\(\d{1,3}\)/g,", ");
-                                console.log(data_value);
-        
-                                
-                                $("<tr><td class='yhack_table_section_label_style'><span class='yhack_table_section_label'>"+ data_label + "</span></td>" + "<td><span class='yhack_table_section_value'>\t\t"+ data_value + "</span></td></tr>").hide().appendTo(yhack_basic_info_section_text).fadeIn();
-                                
-                            }
-                        }
-                        /*
-                            load comments from Yahoo! Life+
-                        */
-                        else if (key == 'comments')
-                        {
-                            for (var comment in obj[key])
-                            {
-                                var title = "";
-                                var href = "";
-
-                                for (var item in obj[key][comment])
-                                {                                
-                                    if (item == 'href')
-                                        href = obj[key][comment][item]
-                                    if (item == 'title')
-                                        title = obj[key][comment][item]    
-                                }
-
-                                $("<div class='phs'><a target='_blank' href='" + href + "'>" + title + "</a></div>").hide().appendTo(yhack_pages_blog_section_text).fadeIn();
-
-                            }
-
-                        }
-                        /*
-                            load photos from Yahoo! Life+
-                        */
-                        else if (key == 'photos')
-                        {
-                            // add yhack_photos_pool
-                            var yhack_photos_pool = document.createElement('div');
-                            $(yhack_photos_pool).addClass("fbProfilePhotoBar").attr("id","container");
-                            $("#yhack_photos_section").after($(yhack_photos_pool));
-
-                            for (var item in obj[key])
-                            {
-                                link = obj[key][item].replace('//','http://');
-                                $("#container").append("<a href='" + link.replace('200x200','450x450') + "' rel='shadowbox' title='" + $(".profileName").text() + "'> <img class='yhack_facebook_img' width='95' height='68' src='" + link + "' /></a>");
-                            }
-
-                            // init shadowbox jquery effect
-                            Shadowbox.init();
-                            
-                        }
-                        /*
-                            load more restaurants from Yahoo! Life+
-                        */
-                        else if (key == 'more')
-                        {
-                            for (var type in obj[key])
-                            {
-                                
-                                if (type == 'data_rel')
+                                for (var item in obj[key])
                                 {
-                                    for (var inner_rel in obj[key][type])
-                                    {
-                                        var title = "";
-                                        var href = "";
+                                    var get_sep_item = obj[key][item].search('：');
 
-                                        for (var fin_rel in obj[key][type][inner_rel])
-                                        {
-                                            if (fin_rel == 'href')
-                                                href = obj[key][type][inner_rel][fin_rel];
-                                            else if (fin_rel == 'title')
-                                                title = obj[key][type][inner_rel][fin_rel];
-                                        }
-                                        $("#yhack_more_ref_section").after("<div class='yhack_sidebar_section phs'><a target='_blank' href='" + href + "'>" + title + "</a></div>");
-                                    }
-                                }
-                                else if (type == 'data_near')
-                                {
-                                    for (var inner in obj[key][type])
-                                    {
-                                        var title = "";
-                                        var href = "";
+                                    var data_label = obj[key][item].substr(0,get_sep_item);
+                                    var data_value = obj[key][item].substr(get_sep_item+1,obj[key][item].length);
 
-                                        for (var fin in obj[key][type][inner])
-                                        {
-                                            if (fin == 'href')
-                                                href = obj[key][type][inner][fin];
-                                            else if (fin == 'title')
-                                                title = obj[key][type][inner][fin];
-                                        }
-                                        $("#yhack_more_near_section").after("<div class='yhack_sidebar_section phs'><a target='_blank' href='" + href + "'>" + title + "</a></div>");
-                                    }
-
+                                    var data_value = data_value.replace(/\(\d{1,3}\)/g,", ");
+                                    console.log(data_value);
+                                    
+                                    $("<tr><td class='yhack_table_section_label_style'><span class='yhack_table_section_label'>"+ data_label + "</span></td>" + "<td><span class='yhack_table_section_value'>\t\t"+ data_value + "</span></td></tr>").hide().appendTo(yhack_basic_info_section_text).fadeIn();
                                     
                                 }
+
+                                $("#yhack_basic_info_section_text").animate({
+                                    backgroundColor: "#E8E8E8"
+                                },800,function(){
+                                    $("#yhack_basic_info_section_text").animate({
+                                        backgroundColor: "#FFFFFF"
+                                    },800);
+                                });
+
+                            }
+                            /*
+                                load comments from Yahoo! Life+
+                            */
+                            else if (key == 'comments')
+                            {
+                                for (var comment in obj[key])
+                                {
+                                    var title = "";
+                                    var href = "";
+
+                                    for (var item in obj[key][comment])
+                                    {                                
+                                        if (item == 'href')
+                                            href = obj[key][comment][item]
+                                        if (item == 'title')
+                                            title = obj[key][comment][item]    
+                                    }
+
+                                    $("<div class='phs'><a target='_blank' href='" + href + "'>" + title + "</a></div>").hide().appendTo(yhack_pages_blog_section_text).fadeIn();
+
+                                }
+
+                            }
+                            /*
+                                load photos from Yahoo! Life+
+                            */
+                            else if (key == 'photos')
+                            {
+                                // add yhack_photos_pool
+                                var yhack_photos_pool = document.createElement('div');
+                                $(yhack_photos_pool).addClass("fbProfilePhotoBar").attr("id","container");
+                                $("#yhack_photos_section").after($(yhack_photos_pool));
+
+                                for (var item in obj[key])
+                                {
+                                    link = obj[key][item].replace('//','http://');
+                                    $("#container").append("<a href='" + link.replace('200x200','450x450') + "' rel='shadowbox' title='" + $(".profileName").text() + "'> <img class='yhack_facebook_img' width='95' height='68' src='" + link + "' /></a>");
+                                }
+
+                                // init shadowbox jquery effect
+                                Shadowbox.init();
                                 
                             }
+                            /*
+                                load more restaurants from Yahoo! Life+
+                            */
+                            else if (key == 'more')
+                            {
+                                for (var type in obj[key])
+                                {
+                                    
+                                    if (type == 'data_rel')
+                                    {
+                                        for (var inner_rel in obj[key][type])
+                                        {
+                                            var title = "";
+                                            var href = "";
+
+                                            for (var fin_rel in obj[key][type][inner_rel])
+                                            {
+                                                if (fin_rel == 'href')
+                                                    href = obj[key][type][inner_rel][fin_rel];
+                                                else if (fin_rel == 'title')
+                                                    title = obj[key][type][inner_rel][fin_rel];
+                                            }
+                                            $("#yhack_more_ref_section").after("<div class='yhack_sidebar_section phs'><a target='_blank' href='" + href + "'>" + title + "</a></div>");
+                                        }
+                                    }
+                                    else if (type == 'data_near')
+                                    {
+                                        for (var inner in obj[key][type])
+                                        {
+                                            var title = "";
+                                            var href = "";
+
+                                            for (var fin in obj[key][type][inner])
+                                            {
+                                                if (fin == 'href')
+                                                    href = obj[key][type][inner][fin];
+                                                else if (fin == 'title')
+                                                    title = obj[key][type][inner][fin];
+                                            }
+                                            $("#yhack_more_near_section").after("<div class='yhack_sidebar_section phs'><a target='_blank' href='" + href + "'>" + title + "</a></div>");
+                                        }
+
+                                        
+                                    }
+                                    
+                                }
+                            }
+                            
                         }
-                        
-                    }
+
+
+                    });
                     
                 });
             });
