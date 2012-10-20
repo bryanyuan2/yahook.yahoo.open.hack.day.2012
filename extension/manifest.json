@@ -6,7 +6,7 @@
       "default_icon": "icons/yhack_48.png"
    },
    "content_scripts": [ {
-      "js": [ "scripts/jquery.js", "scripts/contentscript.js", "scripts/shadowbox.js" ],
+      "js": [ "scripts/jquery.js", "scripts/contentscript.js", "scripts/shadowbox.js", "scripts/jquery.transit.min.js" ],
       "css": [ "styles/yhack.css", "styles/shadowbox.css" ],
       "matches": ["*://*.facebook.com/*"]
    } ],
@@ -17,8 +17,7 @@
       "48": "icons/yhack_48.png",
       "16": "icons/yhack_16.png"
    },
-   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDM+gXX7m3AO1U7snio9dNQsFCDuzmXLtxnOcK2X0aZLdpu6McHOU9te4cevLnI7oX6zR9nXS3IjuXK3U5KgC9BAVd4NSfybvzp3CCSzt2ADUTZ8d1h+0bHpCqI1kOVoDl1wO+o3PL0xCUatcaQr2Ac0EGCxuhVzOH0NLq9Iu6hjwIDAQAB",
-   "name": "Ya!book",
+   "name": "Ya!hook",
    "permissions": [ "tabs", "*://www.facebook.com/","http://*/"],
    "version": "0.1.1",
    "web_accessible_resources": [
@@ -28,6 +27,8 @@
       "img/play.png",
       "img/pause.png",
       "img/loading.gif",
-      "icon/yhack_facebook_48.png"
+      "icon/yhack_facebook_48.png",
+      "img/hook_resize.png",
+      "img/ya_resize.png"
   ]
 }

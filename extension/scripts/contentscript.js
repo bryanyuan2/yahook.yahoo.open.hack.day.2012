@@ -26,7 +26,7 @@ const yhack_events_weather_text = '活動當天氣象預測';
 /*
  * addSection
  */
-var addSection = function(id, title) {
+var addSection = function(id, title, is_main) {
     var header = $('<div>')
         .addClass('uiHeader')
         .addClass('uiHeaderTopAndBottomBorder')
@@ -41,10 +41,14 @@ var addSection = function(id, title) {
                     .attr('src', moon_url_const + 'yhack_facebook_16.png')))
             .append(title));
 
+    className = 'yhack_loading';
+    if (is_main !== undefined && is_main === true)
+        className = className + '_main';
+
     var body = $('<div>')
         .addClass('yhack_content')
         .append($('<div>')
-            .addClass('yhack_loading')
+            .addClass(className)
             .append($('<img>')
                 .attr('width', '16')
                 .attr('height', '16')
@@ -65,10 +69,10 @@ var addSection = function(id, title) {
 var addSideSection = function(id, title) {
     var header = $('<div>')
         .addClass('uiHeader')
-        .addClass("uiHeaderTopBorder")
-        .addClass("mbs")
-        .addClass("pbs")
-        .addClass("uiSideHeader")
+        .addClass('uiHeaderTopBorder')
+        .addClass('mbs')
+        .addClass('pbs')
+        .addClass('uiSideHeader')
         .append($('<h6>')
             .addClass('uiHeaderTitle')
             .addClass('yhack_title_section')
@@ -100,17 +104,17 @@ var addSideSection = function(id, title) {
  */
 var appendSource = function(url) {
     var yhack_pages_source_text = $('<span>')
-        .addClass("fsm")
-        .addClass("fwn")
-        .addClass("fcg")
+        .addClass('fsm')
+        .addClass('fwn')
+        .addClass('fcg')
         .attr('id', 'yhack_pages_source_text')
         .append(yhack_pages_source_help_text)
         .append($('<a>')
             .attr('href', url)
             .attr('target', '_blank')
             .text(yhack_pages_source_life_plus_text
-                + " (" + $(".profileName").text()));
-    $(".fbProfileByline").append(yhack_pages_source_text);
+                + ' (' + $('.profileName').text()));
+    $('.fbProfileByline').append(yhack_pages_source_text);
 }
 
 /*
@@ -128,7 +132,7 @@ var appendBasicInfo = function(obj) {
         var data_value = obj[item]
             .substr(get_sep_item + 1, obj[item].length);
 
-        var data_value = data_value.replace(/\(\d{1,3}\)/g,", ");
+        var data_value = data_value.replace(/\(\d{1,3}\)/g,', ');
         console.log(data_value);
 
         yhack_pages_basic_content.append($('<tr>')
@@ -150,8 +154,8 @@ var appendBasicInfo = function(obj) {
  */
 var appendComments = function(obj) {
     for (var comment in obj) {
-        var title = "";
-        var href = "";
+        var title = '';
+        var href = '';
 
         for (var item in obj[comment]) {
             if (item == 'href')
@@ -177,14 +181,14 @@ var appendPhotos = function(obj) {
     var yhack_photos_pool = $('<div>')
         .addClass('fbProfilePhotoBar')
         .attr('id', 'container');
-    $("#yhack_photos_section").append(yhack_photos_pool);
+    $('#yhack_photos_section').append(yhack_photos_pool);
 
     for (var item in obj) {
         link = obj[item].replace('//','http://');
         yhack_photos_pool.append($('<a>')
             .attr('href', link.replace('200x200', '450x450'))
             .attr('rel', 'shadowbox')
-            .attr('title', $(".profileName").text())
+            .attr('title', $('.profileName').text())
             .append($('<img>')
                 .addClass('yhack_facebook_img')
                 .attr('width', '95')
@@ -205,19 +209,19 @@ var appendTheather = function() {
     $('#yhack_theather_info_section_text').append(yhack_theather_info_table);
 
     var url = yhack_url_const
-        + "?mode=theather&theather_name="
-        + encodeURI($(".profileName").text());
+        + '?mode=theather&theather_name='
+        + encodeURI($('.profileName').text());
     $.get(url, {}, function(data) {
         var theather_obj = jQuery.parseJSON(data);
         var theather_counter = 0;
         console.log(theather_obj);
 
         for (var th_key in theather_obj) {
-            var get_theather_url = "";
-            var get_theather_image = "";
-            var get_theather_name = "";
+            var get_theather_url = '';
+            var get_theather_image = '';
+            var get_theather_name = '';
             var get_theather_time = new Array();
-            var get_theather_time_text = "";
+            var get_theather_time_text = '';
             for (var th_item in theather_obj[th_key]) {
                 if (th_item == 'url') {
                     console.log(theather_obj[th_key][th_item]);
@@ -239,7 +243,7 @@ var appendTheather = function() {
                 }
 
                 for (var k=0;k<get_theather_time.length;k++){
-                    get_theather_time_text = get_theather_time.join("\t");
+                    get_theather_time_text = get_theather_time.join('\t');
                 }
             }
 
@@ -260,7 +264,7 @@ var appendTheather = function() {
                     .append(get_theather_time_text)).hide().fadeIn());
         }
 
-        $(".yhack_loading_theather").hide();
+        $('.yhack_loading_theather').hide();
     });
 }
 
@@ -271,8 +275,8 @@ var appendMore = function(obj) {
     for (var type in obj) {
         if (type == 'data_rel') {
             for (var inner_rel in obj[type]) {
-                var title = "";
-                var href = "";
+                var title = '';
+                var href = '';
 
                 for (var fin_rel in obj[type][inner_rel]) {
                     if (fin_rel == 'href')
@@ -281,7 +285,7 @@ var appendMore = function(obj) {
                         title = obj[type][inner_rel][fin_rel];
                 }
 
-                $("#yhack_more_ref_section").append($('<div>')
+                $('#yhack_more_ref_section').append($('<div>')
                     .addClass('yhack_sidebar_section')
                     .addClass('phs')
                     .append($('<a>')
@@ -292,8 +296,8 @@ var appendMore = function(obj) {
         }
         else if (type == 'data_near') {
             for (var inner in obj[type]) {
-                var title = "";
-                var href = "";
+                var title = '';
+                var href = '';
 
                 for (var fin in obj[type][inner]) {
                     if (fin == 'href')
@@ -302,7 +306,7 @@ var appendMore = function(obj) {
                         title = obj[type][inner][fin];
                 }
 
-                $("#yhack_more_near_section").append($('<div>')
+                $('#yhack_more_near_section').append($('<div>')
                     .addClass('yhack_sidebar_section')
                     .addClass('phs')
                     .append($('<a>')
@@ -324,7 +328,26 @@ $(document).ready(function() {
     if (action == '/pages/') {
         console.log('[check] facebook /pages/ loaded');
 
-        // get_lat_lon
+        var yhack_screen_mask = $('<div>')
+            .addClass('yhack_screen_mask')
+            .attr('id', 'yhack_screen_mask')
+            .height($(document).height());
+
+        // add yhack_logo_ya_resize & yhack_logo_hook_resize
+        var yhack_logo_hook_resize = $('<div>')
+            .addClass('yhack_logo_hook_resize')
+            .attr('id', 'yhack_logo_hook_resize');
+        $('body').append(yhack_logo_hook_resize);
+        
+        var yhack_logo_ya_resize = $('<div>')
+            .addClass('yhack_logo_ya_resize')
+            .attr('id','yhack_logo_ya_resize');
+        $('body').append(yhack_logo_ya_resize);
+
+        $('#yhack_logo_ya_resize').animate({'left':'300px'});
+        $('#yhack_logo_hook_resize').animate({'left':'300px'});
+
+        // get geo information
         var get_lat_lon_url = $('.mtm').find('a').attr('href');
         get_lat_lon_url = (get_lat_lon_url
             .toString()
@@ -337,28 +360,29 @@ $(document).ready(function() {
             .substr(get_lat_lon_url.search('_') + 1, get_lat_lon_url.length);
 
         // add sections
-        addSection('yhack_basic_info_section', yhack_pages_basic_info_text);
+        addSection('yhack_basic_info_section', yhack_pages_basic_info_text, true);
         addSection('yhack_pages_blog_section', yhack_pages_blog_text);
         addSection('yhack_photos_section', yhack_pages_photo_text);
         addSideSection('yhack_more_near_section', yhack_pages_near_text);
         addSideSection('yhack_more_ref_section', yhack_pages_ref_text);
 
         // query data
+        $('body').append(yhack_screen_mask);
         var url = yhack_url_const
             + '?mode=search&query='
-            + encodeURI($(".profileName").text());
+            + encodeURI($('.profileName').text());
 
         $.get(url, {}, function(data) {
             appendSource(data);
             var url = yhack_url_const
-                + "?mode=basic&url=" + data
-                + "&query=" + encodeURI($(".profileName").text());
+                + '?mode=basic&url=' + data
+                + '&query=' + encodeURI($('.profileName').text());
 
             $.get(url, {}, function(data) {
                 var theather_filter_text = ['影城','電影院','威秀','戲院','喜滿客'];
                 theather_filter_bool = false;
                 for (var i = 0; i < theather_filter_text.length; i++) {
-                    if ($(".profileName").text().search(theather_filter_text[i])!=-1){
+                    if ($('.profileName').text().search(theather_filter_text[i])!=-1){
                         theather_filter_bool = true;
                     }
                 }
@@ -368,31 +392,42 @@ $(document).ready(function() {
                     appendTheather();
 
                 var obj = jQuery.parseJSON(data);
-                $(".yhack_loading").fadeOut(500);
-                for (var key in obj) {
-                    if (key == 'basic')
-                        appendBasicInfo(obj[key]);
-                    else if (key == 'comments')
-                        appendComments(obj[key]);
-                    else if (key == 'photos')
-                        appendPhotos(obj[key]);
-                    else if (key == 'more')
-                        appendMore(obj[key]);
-                }
+                $('.yhack_loading').fadeOut(500);
+                $('.yhack_loading_main').fadeOut(500, function() {
+                    $('#yhack_logo_ya_resize')
+                        .transition({ scale: 2.0,opacity: 0 }, function() {
+                            $(this).remove();
+                        });
+                    $('#yhack_logo_hook_resize')
+                        .transition({ scale: 2.0,opacity: 0 }, function() {
+                            $(this).remove();
+                        });
 
+                    $(yhack_screen_mask).removeClass('yhack_screen_mask');
+                    for (var key in obj) {
+                        if (key == 'basic')
+                            appendBasicInfo(obj[key]);
+                        else if (key == 'comments')
+                            appendComments(obj[key]);
+                        else if (key == 'photos')
+                            appendPhotos(obj[key]);
+                        else if (key == 'more')
+                            appendMore(obj[key]);
+                    }
+                });
             });
         });
     }
 
     /*** events ***/
     else if (action == '/events/') {
-        console.log("[check] facebook /events/ loaded");
+        console.log('[check] facebook /events/ loaded');
 
-        var getvalue = ($("#pagelet_event_details").find('a'))[0];
+        var getvalue = ($('#pagelet_event_details').find('a'))[0];
         get_date = (getvalue.toString().match(/[A-Z]\w{3,20}\/\d{1,2}/))[0];
-        get_address = $(".fbEventLocationInfo").text();
+        get_address = $('.fbEventLocationInfo').text();
 
-        //var get_lat_lon = $("._8m").children("._6a").children("._6a._6b").children(".fsm.fwn.fcg").has('a').children().eq(1).attr('href');
+        //var get_lat_lon = $('._8m').children('._6a').children('._6a._6b').children('.fsm.fwn.fcg').has('a').children().eq(1).attr('href');
         var get_lat_lon = $('a[href^="http://bing.com/maps/"]').attr('href');
         get_lat_lon = get_lat_lon.match(/\d{1,3}\.\d{1,20}_\d{1,3}\.\d{1,20}/)[0];
         var get_lat = get_lat_lon.substr(0, get_lat_lon.indexOf('_'));
@@ -402,14 +437,14 @@ $(document).ready(function() {
         // console.log(get_address);
         // console.log(get_lat);
         // console.log(get_lon);
-        $.get(yhack_url_const + "?mode=events&address=" + encodeURI(get_address) + "&date=" + get_date + "&lat=" + get_lat + "&lon=" + get_lon, {}, function(data){
+        $.get(yhack_url_const + '?mode=events&address=' + encodeURI(get_address) + '&date=' + get_date + '&lat=' + get_lat + '&lon=' + get_lon, {}, function(data){
             var obj = jQuery.parseJSON(data);
             //console.log(obj);
 
-            var temp_low = "";
-            var temp_high = "";
-            var temp_img = "";
-            var temp_url = "";
+            var temp_low = '';
+            var temp_high = '';
+            var temp_img = '';
+            var temp_url = '';
             for (var item in obj) {
                 if (item == 'temp_low')
                     temp_low = obj[item];
@@ -423,7 +458,7 @@ $(document).ready(function() {
 
             //console.log(temp_img);
             if (temp_img.length > 3) {
-                $(".ego_section").prepend("<div class='uiHeader uiHeaderTopBorder mbs uiSideHeader'>"
+                $($(".ego_section")[0]).prepend("<div class='uiHeader uiHeaderTopBorder mbs uiSideHeader'>"
                 + "<div class='clearfix uiHeaderTop'>"
                 + "<div>"
                 + "<h6 tabindex='0' class='uiHeaderTitle yhack_title_section' aria-hidden='true'>" + yhack_events_weather_text + "</h6>"
@@ -476,9 +511,6 @@ $(document).ready(function() {
             }
         });
     }
-    /*****************
-     * end 未整理
-    *****************/
 });
 
 })();
