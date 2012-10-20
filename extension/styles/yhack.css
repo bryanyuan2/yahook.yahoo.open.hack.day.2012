@@ -145,6 +145,10 @@
 	padding: 5px 0px 5px 0px;
 }
 
+.theather_default_show td{
+  vertical-align: top;
+}
+
 /*
 	ya!hook logo
 */
