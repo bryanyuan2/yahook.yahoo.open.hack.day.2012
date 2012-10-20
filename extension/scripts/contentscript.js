@@ -36,7 +36,27 @@
         */
         if (action=="/pages/")
         {
-            console.log("[check] facebook /pages/ loaded");            
+            console.log("[check] facebook /pages/ loaded");
+
+            var test = document.createElement('div');
+            $(test).addClass("screenMask").attr("id","screenMask");
+            $('.screenMask').height($(document).height());
+
+            // add logo
+            
+            var yhack_logo_hook_resize = document.createElement('div');
+            $(yhack_logo_hook_resize).addClass("yhack_logo_hook_resize").attr("id","yhack_logo_hook_resize");
+            $("body").append(yhack_logo_hook_resize);
+            
+            
+            var yhack_logo_ya_resize = document.createElement('div');
+            $(yhack_logo_ya_resize).addClass("yhack_logo_ya_resize").attr("id","yhack_logo_ya_resize");
+            $("body").append(yhack_logo_ya_resize);
+
+            $("#yhack_logo_ya_resize").animate({"left":"300px"});
+            $("#yhack_logo_hook_resize").animate({"left":"300px"});
+
+            
 
             var get_lat_lon_url = $(".mtm").find("a").attr('href');
 
@@ -49,8 +69,6 @@
             // yhack_basic_info_section
             var yhack_basic_info_section = document.createElement('div');
             var yhack_basic_info_section_text = document.createElement('div');
-
-            $(yhack_basic_info_section_text).attr("id","yhack_basic_info_section_text");
             
             $(yhack_basic_info_section).addClass("uiHeader")
             .addClass("uiHeaderTopAndBottomBorder")
@@ -138,6 +156,11 @@
             /*
                 search mode
             */
+
+            $("body").append(test);
+
+
+
             $.get(yhack_url_const + "?mode=search&query=" + encodeURI($(".profileName").text()), {}, function(data){
 
                 get_url_data = data;
@@ -248,8 +271,6 @@
                             $(".yhack_loading_theather").hide();
                         });
                         
-                        
-
                     }
                     else {
                         console.log("not the theather !");
@@ -260,14 +281,16 @@
                     $("#yhack_bar").after("<ul class='tags'></ul>");
 
                     // add yhack_pages_basic_table
-                    var yhack_pages_basic_text = document.createElement('div');
                     var yhack_pages_basic_content = document.createElement('table');
-                    $(yhack_pages_basic_text).attr("id","yhack_pages_basic_text");
-                    $(yhack_pages_basic_text).append(yhack_pages_basic_content);
                     $(yhack_pages_basic_content).attr('id','yhack_pages_basic_content');
-                    $(yhack_basic_info_section).after(yhack_pages_basic_text);
+                    $(yhack_basic_info_section).after(yhack_pages_basic_content);
+
                     $(".yhack_loading").fadeOut(500);
                     $(".yhack_loading_main").fadeOut(500,function(){
+                        $("#yhack_logo_ya_resize").transition({ scale: 2.0,opacity: 0 });
+                        $("#yhack_logo_hook_resize").transition({ scale: 2.0,opacity: 0 });
+                        $(test).removeClass("screenMask");
+
                         for (var key in obj)
                         {
                             /*
@@ -284,19 +307,11 @@
 
                                     var data_value = data_value.replace(/\(\d{1,3}\)/g,", ");
                                     console.log(data_value);
+            
                                     
                                     $("<tr><td class='yhack_table_section_label_style'><span class='yhack_table_section_label'>"+ data_label + "</span></td>" + "<td><span class='yhack_table_section_value'>\t\t"+ data_value + "</span></td></tr>").hide().appendTo(yhack_basic_info_section_text).fadeIn();
                                     
                                 }
-
-                                $("#yhack_basic_info_section_text").animate({
-                                    backgroundColor: "#E8E8E8"
-                                },800,function(){
-                                    $("#yhack_basic_info_section_text").animate({
-                                        backgroundColor: "#FFFFFF"
-                                    },800);
-                                });
-
                             }
                             /*
                                 load comments from Yahoo! Life+

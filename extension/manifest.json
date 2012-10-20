@@ -6,7 +6,7 @@
       "default_icon": "icons/yhack_48.png"
    },
    "content_scripts": [ {
-      "js": [ "scripts/jquery.js", "scripts/contentscript.js", "scripts/shadowbox.js", "scripts/jquery.color.js" ],
+      "js": [ "scripts/jquery.js", "scripts/contentscript.js", "scripts/shadowbox.js", "scripts/jquery.transit.min.js" ],
       "css": [ "styles/yhack.css", "styles/shadowbox.css" ],
       "matches": ["*://*.facebook.com/*"]
    } ],
@@ -28,7 +28,7 @@
       "img/pause.png",
       "img/loading.gif",
       "icon/yhack_facebook_48.png",
-      "img/™.png",
-      "img/yahoo_logo.png"
+      "img/hook_resize.png",
+      "img/ya_resize.png"
   ]
 }
