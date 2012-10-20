@@ -283,7 +283,7 @@
                             {
                                 var get_sep_item = obj[key][item].search('：');
 
-                                var data_label = obj[key][item].substr(0,get_sep_item);
+                                var data_label = obj[key][item].substr(0,get_sep_item).replace(/\s*/g, '');
                                 var data_value = obj[key][item].substr(get_sep_item+1,obj[key][item].length);
 
                                 var data_value = data_value.replace(/\(\d{1,3}\)/g,", ");
