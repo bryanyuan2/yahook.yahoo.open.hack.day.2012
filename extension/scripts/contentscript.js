@@ -391,7 +391,8 @@
             });
             
         }
-
+        
+        //Yahoo Weather
         else if (action=="/events/")
         {
 
@@ -447,7 +448,7 @@
                     + "<div class='_4u8'>"
                     + "<img class='yhack_weather_image' src='" + temp_img + "' />"
                     + "<div class='yhack_weather_widget'>" 
-                    + "<span style='yhack_weather_high_temp'>" + temp_high + "&degc</span>"
+                    + "<span class='yhack_weather_high_temp'>" + temp_high + "&degc</span>"
                     + "<span class='yhack_weather_low_temp'>" + temp_low + "&degc</span>"
                     + "</div></div></div></a></div>");    
                 }
