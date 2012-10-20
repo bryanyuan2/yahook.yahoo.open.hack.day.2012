@@ -80,14 +80,17 @@ if __name__ == '__main__':
     readInfo = open('parks.txt', 'r')
     parkList = json.load(readInfo)
     c = LatLonToTWD97()
-    lat = radians(float('25.057569767389'))
-    lon = radians(float('121.61455287873'))
+    lat = radians(float('25.068826'))
+    lon = radians(float('121.615645'))
     print 'input lat/lon', degrees(lat), degrees(lon)
     x, y = c.convert(lat, lon)
     print (x, y)
+    lat = x
+    lon = y
 
+    print '\n'.join([str(sqrt((lat - float(x['tw97x'])) ** 2.0 + (lon - float(x['tw97y'])) ** 2.0 )) for x in parkList])  
+    parkList = filter(lambda x:sqrt((lat - float(x['tw97x'])) ** 2.0 + (lon - float(x['tw97y'])) ** 2.0 ) < 3000.0, parkList)
     parkList.sort(key = lambda x :sqrt((lat - float(x['tw97x'])) ** 2 + (lon - float(x['tw97y'])) ** 2 ))
-
     print parkList[0:4]
     
     #for i in range(1, 166):
