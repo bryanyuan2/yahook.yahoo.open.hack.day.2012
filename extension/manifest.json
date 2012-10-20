@@ -17,7 +17,7 @@
       "48": "icons/yhack_48.png",
       "16": "icons/yhack_16.png"
    },
-   "name": "Ya!book",
+   "name": "Ya!hook",
    "permissions": [ "tabs", "*://www.facebook.com/","http://*/"],
    "version": "0.1.1",
    "web_accessible_resources": [

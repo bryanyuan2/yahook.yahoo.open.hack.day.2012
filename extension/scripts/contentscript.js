@@ -38,16 +38,16 @@
         {
             console.log("[check] facebook /pages/ loaded");
 
-            var test = document.createElement('div');
-            $(test).addClass("screenMask").attr("id","screenMask");
-            $('.screenMask').height($(document).height());
+            var yhack_screen_mask = document.createElement('div');
+            $(yhack_screen_mask).addClass("yhack_screen_mask").attr("id","yhack_screen_mask");
+            $(yhack_screen_mask).height($(document).height());
 
-            // add logo
-            
+            /*
+                add yhack_logo_ya_resize & yhack_logo_hook_resize
+            */
             var yhack_logo_hook_resize = document.createElement('div');
             $(yhack_logo_hook_resize).addClass("yhack_logo_hook_resize").attr("id","yhack_logo_hook_resize");
             $("body").append(yhack_logo_hook_resize);
-            
             
             var yhack_logo_ya_resize = document.createElement('div');
             $(yhack_logo_ya_resize).addClass("yhack_logo_ya_resize").attr("id","yhack_logo_ya_resize");
@@ -56,15 +56,15 @@
             $("#yhack_logo_ya_resize").animate({"left":"300px"});
             $("#yhack_logo_hook_resize").animate({"left":"300px"});
 
-            
-
+            /*
+                get geo information
+            */
             var get_lat_lon_url = $(".mtm").find("a").attr('href');
 
             get_lat_lon_url = (get_lat_lon_url.toString().match(/\d{1,3}\.\d{1,20}_\d{1,3}\.\d{1,20}/))[0];
             console.log(get_lat_lon_url);
             var get_ymap_lon = get_lat_lon_url.substr(0,get_lat_lon_url.search("_"));
             var get_ymap_lat = get_lat_lon_url.substr(get_lat_lon_url.search("_")+1,get_lat_lon_url.length);
-            
             
             // yhack_basic_info_section
             var yhack_basic_info_section = document.createElement('div');
@@ -157,7 +157,7 @@
                 search mode
             */
 
-            $("body").append(test);
+            $("body").append(yhack_screen_mask);
 
 
 
@@ -287,9 +287,14 @@
 
                     $(".yhack_loading").fadeOut(500);
                     $(".yhack_loading_main").fadeOut(500,function(){
-                        $("#yhack_logo_ya_resize").transition({ scale: 2.0,opacity: 0 });
-                        $("#yhack_logo_hook_resize").transition({ scale: 2.0,opacity: 0 });
-                        $(test).removeClass("screenMask");
+                        $("#yhack_logo_ya_resize").transition({ scale: 2.0,opacity: 0 },function(){
+                            $(this).remove();
+                        });
+                        $("#yhack_logo_hook_resize").transition({ scale: 2.0,opacity: 0 },function(){
+                            $(this).remove();
+                        });
+                        
+                        $(yhack_screen_mask).removeClass("yhack_screen_mask");
 
                         for (var key in obj)
                         {

@@ -131,6 +131,9 @@
 	padding: 5px 0px 5px 0px;
 }
 
+/*
+	ya!hook logo
+*/
 .yhack_logo_hook_resize{
 	position: absolute;
 	left:600px;
@@ -151,7 +154,10 @@
 	z-index: 10000;
 }
 
-.screenMask
+/*
+	ya!hook mask
+*/
+.yhack_screen_mask
 {
     position: absolute;
     left: 0px;
