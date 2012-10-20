@@ -507,6 +507,10 @@ $(document).ready(function() {
             remove_screen_mask();
             $('.yhack_loading').fadeOut(500);
             $('.yhack_loading_main').fadeOut(500);
+
+            var msg = '<div class="yhack_noinfo">查無相關資訊</div>';
+            $('.yhack_loading').after(msg);
+            $('.yhack_loading_main').after(msg);
         });
     }
 
