@@ -268,6 +268,55 @@ var appendTheather = function() {
     });
 }
 
+/*
+ * appendPark
+ */
+var appendPark = function(obj) {
+    
+    for (var item in obj) {
+        //console.log(obj[item]);
+        var address = new Array();
+        var name = new Array();
+        var totalBike = new Array();
+        var totalCar = new Array();
+        var totalMotor = new Array();
+         
+        for (var key in obj[item]) {
+
+            
+            if (key == 'address')
+                address.push(obj[item][key]);
+            else if (key == 'name')
+                name.push(obj[item][key]);
+            else if (key == 'totalBike')
+                totalBike.push(obj[item][key]);
+            else if (key == 'totalCar')
+                totalCar.push(obj[item][key]);
+            else if (key == 'totalMotor')
+                totalMotor.push(obj[item][key]);
+        }
+        
+        for (var i=0;i<name.length;i++)
+        {
+            $('#yhack_more_parking_section .yhack_content').append($('<div>')
+            .addClass('yhack_sidebar_section')
+            .addClass('phs')
+            .append('<span class="yhack_table_section_label">' + name[i] + '</span>')
+            .append('<br />')
+            .append('<a target="_blank" href="http://tw.maps.yahoo.com/?addr=' + encodeURI(address[i]) + '&ei=utf8">' + address[i] + '</a>')
+            .append('<br />')
+            .append('總汽車位: ' + totalCar[i])
+            .append('<br />')
+            .append('總摩托車位: ' + totalMotor[i])
+            .append('<br />')
+            .append('總腳踏車位: ' + totalBike[i])
+            .append('<hr />'));
+        }
+        
+         
+    }
+}
+
 
 /*
 * add_screen_mask
@@ -391,9 +440,9 @@ $(document).ready(function() {
             .match(/\d{1,3}\.\d{1,20}_\d{1,3}\.\d{1,20}/))[0];
 
         console.log(get_lat_lon_url);
-        var get_ymap_lon = get_lat_lon_url
-            .substr(0, get_lat_lon_url.search('_'));
         var get_ymap_lat = get_lat_lon_url
+            .substr(0, get_lat_lon_url.search('_'));
+        var get_ymap_lon = get_lat_lon_url
             .substr(get_lat_lon_url.search('_') + 1, get_lat_lon_url.length);
 
 
@@ -403,6 +452,7 @@ $(document).ready(function() {
         addSection('yhack_photos_section', yhack_pages_photo_text);
         addSideSection('yhack_more_near_section', yhack_pages_near_text);
         addSideSection('yhack_more_ref_section', yhack_pages_ref_text);
+        addSideSection('yhack_more_parking_section', yhack_pages_parking_text);
 
         // query data
         $('body').append(yhack_screen_mask);
@@ -412,9 +462,12 @@ $(document).ready(function() {
 
         var search_ajax_get = $.get(url, {}, function(data) {
             appendSource(data);
+            console.log(get_ymap_lat);
+            console.log(get_ymap_lon);
+
             var url = yhack_url_const
                 + '?mode=basic&url=' + data
-                + '&query=' + encodeURI($('.profileName').text());
+                + '&storelat=' + get_ymap_lat + '&storelon=' + get_ymap_lon + '&query=' + encodeURI($('.profileName').text());
 
             $.get(url, {}, function(data) {
                 var theather_filter_text = ['影城','電影院','威秀','戲院','喜滿客'];
@@ -444,12 +497,16 @@ $(document).ready(function() {
                             appendPhotos(obj[key]);
                         else if (key == 'more')
                             appendMore(obj[key]);
+                        else if (key == 'park')
+                            appendPark(obj[key]);
                     }
                 });
             });
         }).error(function() {
             console.log("search error");
             remove_screen_mask();
+            $('.yhack_loading').fadeOut(500);
+            $('.yhack_loading_main').fadeOut(500);
         });
     }
 

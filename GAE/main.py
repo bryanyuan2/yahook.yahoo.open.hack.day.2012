@@ -20,6 +20,8 @@ import json
 import re
 from HTMLParser import HTMLParser
 from BeautifulSoup import BeautifulSoup
+from LatLonToTWD97 import LatLonToTWD97
+from math import sqrt, radians
 
 class MLStripper(HTMLParser):
     def __init__(self):
@@ -109,7 +111,26 @@ class MainPage(webapp2.RequestHandler):
             row = self.remove_tab_space(self.remove_tags(str(get_shop_info[i].find('div', attrs={'class': 'itm'}))))
             data_list["basic_"+str(i)] = row
         return data_list
-    
+    #
+    # [pages] yhack_pages_get_parks
+    #
+    def yhack_pages_get_parks(self, park_list, lat, lon):
+        readParkText = open(park_list, 'r')
+        parkList = json.loads(readParkText.read())
+        latlonTransfer = LatLonToTWD97()
+        latWGS = radians(float(lat))
+        lonWGS = radians(float(lon))
+        latTWD, lonTWD = latlonTransfer.convert(latWGS, lonWGS)
+
+        parkList = filter(lambda x:sqrt((latTWD - float(x['tw97x'])) ** 2.0 + (lonTWD - float(x['tw97y'])) ** 2.0 ) < 3000.0, parkList)
+        parkList.sort(key = lambda x :sqrt((latTWD - float(x['tw97x'])) ** 2 + (lonTWD - float(x['tw97y'])) ** 2 ))
+        
+        if len(parkList) > 4:
+            return parkList[0:4]
+        else:
+            return parkList
+
+
     #
     # [pages] yhack_pages_get_more_shops
     #
@@ -280,12 +301,14 @@ class MainPage(webapp2.RequestHandler):
         yhack_yahoo_life_const_url = "http://tw.ipeen.lifestyle.yahoo.net"
         yhack_yahoo_app_id = "9AZ8FWjV34EVwK86ODdtBih4E01nLm4927JH88O_t2qirXMjus36eFqw6Y7ZYyMAiFXand2cOppgISU-"
         yhack_gae_theater_list = "theater_list.txt"
+        yhack_gae_park_list = "parks.txt"
 
         # general
         mode = urllib.unquote(self.request.get('mode')).encode('utf8')
         query = urllib.unquote(self.request.get('query')).encode('utf8')
         url = urllib.unquote(self.request.get('url')).encode('utf8')
-
+        storelat = urllib.unquote(self.request.get('storelat')).encode('utf8')
+        storelon = urllib.unquote(self.request.get('storelon')).encode('utf8')
         # weather
         address = urllib.unquote(self.request.get('address')).encode('utf8')
         date = urllib.unquote(self.request.get('date')).encode('utf8')
@@ -312,11 +335,17 @@ class MainPage(webapp2.RequestHandler):
             get_comments = self.yhack_pages_get_comments(soup,yhack_yahoo_life_const_url)
             get_more = self.yhack_pages_get_more_shops(soup,yhack_yahoo_life_const_url)
             get_photo = self.yhack_pages_get_photos(url)
+           
+            if (storelat):
+                get_park = self.yhack_pages_get_parks(yhack_gae_park_list, storelat, storelon)
 
             container['basic'] = get_basic
             container['comments'] = get_comments
             container['more'] = get_more
             container['photos'] = get_photo
+            
+            if (storelat):
+                container['park'] = get_park
             
             self.response.write(json.dumps(container));
             
