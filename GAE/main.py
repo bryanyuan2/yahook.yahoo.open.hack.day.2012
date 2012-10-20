@@ -50,7 +50,11 @@ class MainPage(webapp2.RequestHandler):
     # [pages] search_the_most_releated
     #
     def search_the_most_releated(self,query,yhack_yahoo_life_const_url):
+        query = query.decode('utf-8', 'ignore')
+        query = '%20'.join(query)
+        query = query.encode('utf-8', 'ignore')
         search_url = "http://tw.ipeen.lifestyle.yahoo.net/search/?kw=" + str(query) + "&adkw="
+        print search_url
         html = urllib2.urlopen(search_url).read()
         if html.find('to="c" code="4"') > -1:
             search_url = "http://tw.ipeen.lifestyle.yahoo.net/search/?kw=" + str(query) + "&c=4"
