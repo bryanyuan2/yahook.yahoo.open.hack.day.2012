@@ -83,6 +83,7 @@ var addSideSection = function(id, title) {
             .append(title));
 
     var body = $('<div>')
+        .addClass('yhack_content')
         .append($('<div>')
             .addClass('yhack_loading')
             .append($('<img>')
@@ -123,7 +124,7 @@ var appendSource = function(url) {
 var appendBasicInfo = function(obj) {
     var yhack_pages_basic_content = $('<table>')
         .attr('id', 'yhack_pages_basic_content');
-    $('#yhack_basic_info_section').append(yhack_pages_basic_content);
+    $('#yhack_basic_info_section .yhack_content').append(yhack_pages_basic_content);
 
     for (var item in obj) {
         var get_sep_item = obj[item].search('：');
@@ -164,7 +165,7 @@ var appendComments = function(obj) {
                 title = obj[comment][item]
         }
 
-        $('#yhack_pages_blog_section').append($('<div>')
+        $('#yhack_pages_blog_section .yhack_content').append($('<div>')
             .addClass('phs')
             .append($('<a>')
                 .attr('target', '_blank')
@@ -181,7 +182,7 @@ var appendPhotos = function(obj) {
     var yhack_photos_pool = $('<div>')
         .addClass('fbProfilePhotoBar')
         .attr('id', 'container');
-    $('#yhack_photos_section').append(yhack_photos_pool);
+    $('#yhack_photos_section .yhack_content').append(yhack_photos_pool);
 
     for (var item in obj) {
         link = obj[item].replace('//','http://');
@@ -191,8 +192,6 @@ var appendPhotos = function(obj) {
             .attr('title', $('.profileName').text())
             .append($('<img>')
                 .addClass('yhack_facebook_img')
-                .attr('width', '95')
-                .attr('height', '68')
                 .attr('src', link)));
     }
 
@@ -264,7 +263,7 @@ var appendTheather = function() {
                     .append(get_theather_time_text)).hide().fadeIn());
         }
 
-        $('.yhack_loading_theather').hide();
+        $('.yhack_loading_theather .yhack_content').hide();
     });
 }
 
@@ -285,7 +284,7 @@ var appendMore = function(obj) {
                         title = obj[type][inner_rel][fin_rel];
                 }
 
-                $('#yhack_more_ref_section').append($('<div>')
+                $('#yhack_more_ref_section .yhack_content').append($('<div>')
                     .addClass('yhack_sidebar_section')
                     .addClass('phs')
                     .append($('<a>')
@@ -306,7 +305,7 @@ var appendMore = function(obj) {
                         title = obj[type][inner][fin];
                 }
 
-                $('#yhack_more_near_section').append($('<div>')
+                $('#yhack_more_near_section .yhack_content').append($('<div>')
                     .addClass('yhack_sidebar_section')
                     .addClass('phs')
                     .append($('<a>')

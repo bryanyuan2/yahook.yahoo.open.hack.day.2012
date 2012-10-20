@@ -5,14 +5,28 @@
 	margin: 1px 0px 2px 0px;
 }
 
+.yhack_content{
+  margin: 3px 0 5px;
+}
+
 /*
 	pages.yhack_facebook_img
 */
 .yhack_facebook_img .yhack_facebook_img:link{
 	border: none;
 	border-style: none;
-	margin: 0px 0px 0px 0px;
+	margin: 0;
 	line-height: 1px; 
+}
+
+.yhack_facebook_img{
+  margin: 0 1px;
+  height: 120px;
+  width: 120px;
+}
+
+#container.fbProfilePhotoBar{
+  margin: 5px 2px 2px;
 }
 
 /*
