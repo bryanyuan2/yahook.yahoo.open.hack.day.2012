@@ -11,7 +11,7 @@
       "matches": ["*://*.facebook.com/*"]
    } ],
    "manifest_version": 2,
-   "description": "Yahoo! Open Hack Day 2012 Ya!Book",
+   "description": "Yahoo! Open Hack Day 2012 - Ya!hook",
    "icons": {
       "128": "icons/yhack_128.png",
       "48": "icons/yhack_48.png",
@@ -19,7 +19,7 @@
    },
    "name": "Ya!hook",
    "permissions": [ "tabs", "*://www.facebook.com/","http://*/"],
-   "version": "0.1.1",
+   "version": "1.0.0",
    "web_accessible_resources": [
       "img/close.png",
       "img/next.png",
