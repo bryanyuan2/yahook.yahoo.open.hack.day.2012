@@ -21,6 +21,7 @@ const yhack_pages_photo_text = '相關照片';
 const yhack_pages_theather_text = '今日電影時刻表';
 const yhack_pages_source_help_text = '資料來源';
 const yhack_pages_source_life_plus_text = 'Yahoo! 生活+';
+const yhack_pages_parking_text = '停車資訊';
 const yhack_events_weather_text = '活動當天氣象預測';
 
 /*
@@ -267,6 +268,51 @@ var appendTheather = function() {
     });
 }
 
+
+/*
+* add_screen_mask
+*/
+var add_screen_mask = function(obj) {
+    var yhack_screen_mask = $('<div>')
+        .addClass('yhack_screen_mask')
+        .attr('id', 'yhack_screen_mask')
+        .height($(document).height());
+
+    $('body').append(yhack_screen_mask);
+
+    // add yhack_logo_ya_resize & yhack_logo_hook_resize
+    var yhack_logo_hook_resize = $('<div>')
+        .addClass('yhack_logo_hook_resize')
+        .attr('id', 'yhack_logo_hook_resize');
+    $('body').append(yhack_logo_hook_resize);
+    
+    var yhack_logo_ya_resize = $('<div>')
+        .addClass('yhack_logo_ya_resize')
+        .attr('id','yhack_logo_ya_resize');
+    $('body').append(yhack_logo_ya_resize);
+
+
+    $('#yhack_logo_ya_resize').animate({'left':'300px'});
+    $('#yhack_logo_hook_resize').animate({'left':'300px'});
+}
+
+/*
+* remove_screen_mask
+*/
+var remove_screen_mask = function(obj) {
+    $('#yhack_logo_ya_resize')
+        .transition({ scale: 2.0,opacity: 0 }, function() {
+            $(this).remove();
+        });
+    $('#yhack_logo_hook_resize')
+        .transition({ scale: 2.0,opacity: 0 }, function() {
+            $(this).remove();
+        });
+
+    $(yhack_screen_mask).removeClass('yhack_screen_mask');
+
+}
+
 /*
  * appendMore
  */
@@ -333,25 +379,7 @@ $(document).ready(function() {
         }
         else
         {
-            var yhack_screen_mask = $('<div>')
-                .addClass('yhack_screen_mask')
-                .attr('id', 'yhack_screen_mask')
-                .height($(document).height());
-
-            // add yhack_logo_ya_resize & yhack_logo_hook_resize
-            var yhack_logo_hook_resize = $('<div>')
-                .addClass('yhack_logo_hook_resize')
-                .attr('id', 'yhack_logo_hook_resize');
-            $('body').append(yhack_logo_hook_resize);
-            
-            var yhack_logo_ya_resize = $('<div>')
-                .addClass('yhack_logo_ya_resize')
-                .attr('id','yhack_logo_ya_resize');
-            $('body').append(yhack_logo_ya_resize);
-
-
-            $('#yhack_logo_ya_resize').animate({'left':'300px'});
-            $('#yhack_logo_hook_resize').animate({'left':'300px'});
+            add_screen_mask();
         }
 
         
@@ -368,6 +396,7 @@ $(document).ready(function() {
         var get_ymap_lat = get_lat_lon_url
             .substr(get_lat_lon_url.search('_') + 1, get_lat_lon_url.length);
 
+
         // add sections
         addSection('yhack_basic_info_section', yhack_pages_basic_info_text, true);
         addSection('yhack_pages_blog_section', yhack_pages_blog_text);
@@ -381,7 +410,7 @@ $(document).ready(function() {
             + '?mode=search&query='
             + encodeURI($('.profileName').text());
 
-        $.get(url, {}, function(data) {
+        var search_ajax_get = $.get(url, {}, function(data) {
             appendSource(data);
             var url = yhack_url_const
                 + '?mode=basic&url=' + data
@@ -403,16 +432,9 @@ $(document).ready(function() {
                 var obj = jQuery.parseJSON(data);
                 $('.yhack_loading').fadeOut(500);
                 $('.yhack_loading_main').fadeOut(500, function() {
-                    $('#yhack_logo_ya_resize')
-                        .transition({ scale: 2.0,opacity: 0 }, function() {
-                            $(this).remove();
-                        });
-                    $('#yhack_logo_hook_resize')
-                        .transition({ scale: 2.0,opacity: 0 }, function() {
-                            $(this).remove();
-                        });
+                    
+                    remove_screen_mask();
 
-                    $(yhack_screen_mask).removeClass('yhack_screen_mask');
                     for (var key in obj) {
                         if (key == 'basic')
                             appendBasicInfo(obj[key]);
@@ -425,6 +447,9 @@ $(document).ready(function() {
                     }
                 });
             });
+        }).error(function() {
+            console.log("search error");
+            remove_screen_mask();
         });
     }
 
@@ -442,6 +467,11 @@ $(document).ready(function() {
         var get_lat = get_lat_lon.substr(0, get_lat_lon.indexOf('_'));
         var get_lon = get_lat_lon.substr(get_lat_lon.indexOf('_') + 1);
 
+        if (get_lon!='')
+        {
+            add_screen_mask();
+        }
+            
         // console.log(get_date);
         // console.log(get_address);
         // console.log(get_lat);
@@ -482,6 +512,10 @@ $(document).ready(function() {
                 + "<span class='yhack_weather_low_temp'>" + temp_low + "&degc</span>"
                 + "</div></div></div></a></div>");
 
+
+                remove_screen_mask();
+                
+
                 /*
                 $(".ego_section").prepend($('<div>')
                     .append($('<div>')
@@ -517,6 +551,19 @@ $(document).ready(function() {
                                                 .addClass('yhack_weather_low_temp')
                                                 .text(temp_low + '&degc')))))))));
                 */
+            }
+            else
+            {
+                $('#yhack_logo_ya_resize')
+                    .transition({ scale: 2.0,opacity: 0 }, function() {
+                        $(this).remove();
+                    });
+                $('#yhack_logo_hook_resize')
+                    .transition({ scale: 2.0,opacity: 0 }, function() {
+                        $(this).remove();
+                    });
+
+                $(yhack_screen_mask).removeClass('yhack_screen_mask');
             }
         });
     }
