@@ -411,7 +411,7 @@ $(document).ready(function() {
             + '?mode=search&query='
             + encodeURI($('.profileName').text());
 
-        $.get(url, {}, function(data) {
+        var search_ajax_get = $.get(url, {}, function(data) {
             appendSource(data);
             var url = yhack_url_const
                 + '?mode=basic&url=' + data
@@ -448,6 +448,9 @@ $(document).ready(function() {
                     }
                 });
             });
+        }).error(function() {
+            console.log("search error");
+            remove_screen_mask();
         });
     }
 
