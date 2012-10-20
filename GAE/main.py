@@ -335,13 +335,17 @@ class MainPage(webapp2.RequestHandler):
             get_comments = self.yhack_pages_get_comments(soup,yhack_yahoo_life_const_url)
             get_more = self.yhack_pages_get_more_shops(soup,yhack_yahoo_life_const_url)
             get_photo = self.yhack_pages_get_photos(url)
-            get_park = self.yhack_pages_get_parks(yhack_gae_park_list, storelat, storelon)
+           
+            if (storelat):
+                get_park = self.yhack_pages_get_parks(yhack_gae_park_list, storelat, storelon)
 
             container['basic'] = get_basic
             container['comments'] = get_comments
             container['more'] = get_more
             container['photos'] = get_photo
-            container['park'] = get_park
+            
+            if (storelat):
+                container['park'] = get_park
             
             self.response.write(json.dumps(container));
             
