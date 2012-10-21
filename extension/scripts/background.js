@@ -7,15 +7,16 @@
 // 		}
 // 	});
 // });
-var original_tab_url = ''
-function checkForValidUrl(tabId, changeInfo, tab) {
-    if (tab.url != original_tab_url){
-        if (tab.url.indexOf('www.facebook.com/pages/') > -1 || tab.url.indexOf('www.facebook.com/events/') > -1){
+var original_tab_url = {};
+var checkForValidUrl = function (tabId, changeInfo, tab) {
+    if (tab.url != original_tab_url[tabId]) {
+        if (tab.url.indexOf('www.facebook.com/pages/') > -1 ||
+            tab.url.indexOf('www.facebook.com/events/') > -1) {
 		    chrome.tabs.reload(tab.id);
         }
 
-        original_tab_url = tab.url;
+        original_tab_url[tabId] = tab.url;
     }
-};
+}
 
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
