@@ -28,4 +28,4 @@ from INSIDE
 
 ### Developer
 
-Chun-Yuan Cheng, Ken Lin, Chi-En Wu
+Chun-Yuan Cheng, Ken Lin, Chi-En Wu 
